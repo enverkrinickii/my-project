@@ -14,9 +14,9 @@
                     </td>
                     <td >
                         <div class="login">
-                            <input type="text" maxlength="16" name="NickName" v-model="newUser.name" placeholder="Login" > 
+                            <input type="text" maxlength="16" tabindex="1" name="NickName" v-model="newUser.name" placeholder="Login" >
                             <br>
-                                <span class="error_control" v-show="isErrorName">>{{ userMsg  }}
+                                <span class="error_control" v-show="isErrorName">{{ userMsg  }}
                                 </span>
                         </div>
                     </td>
@@ -27,7 +27,7 @@
                     </td>
                     <td>
                            <div class="email">
-                               <input type="email" name="Email" v-model="newUser.email" placeholder="Email"><br>
+                               <input type="email" tabindex="2" name="Email" v-model="newUser.email" placeholder="Email"><br>
                                <span v-show="isErrorMail" >{{ emailMsg }}</span>
                            </div>
                     </td>
@@ -39,7 +39,7 @@
                     </td>
                     <td>
                         <div class="select">
-                            <select name="city" v-model="newUser.city">
+                            <select tabindex="3" name="city" v-model="newUser.city">
                                 <option value="" disabled selected hidden>Select city</option>
                                 <option>Брест</option>
                                 <option>Витебск</option>
@@ -56,7 +56,7 @@
                     </td>
                     <td>
                         <div class="password">
-                            <input type="password" name="Password" v-model="newUser.password" placeholder="Password" maxlength="16" >
+                            <input type="password" tabindex="4" name="Password" v-model="newUser.password" placeholder="Password" maxlength="16" >
                         </div>
                             <br>
                         <span class="error_control" v-show="isErrorPswd">{{ passwordMsg }}</span>
@@ -68,7 +68,7 @@
                    </td>
                     <td>
                         <div class="password conf">
-                            <input type="password" name="Password2" v-model="newUser.password2" placeholder="Repeat password" maxlength="16">
+                            <input type="password" tabindex="5" name="Password2" v-model="newUser.password2" placeholder="Repeat password" maxlength="16">
                             <br>
                             <span class="error_control" v-show="isErrorPswd">{{ passwordMsg2 }}</span>
                         </div>
@@ -82,13 +82,15 @@
                     </div>
                     </td>
                     <td>
-                        <input type="checkbox" class = "chbox" id="chbox" v-model="newUser.mailing">
+                        <input type="checkbox" tabindex="6 "class = "chbox" id="chbox" v-model="newUser.mailing">
                     </td>
                 </tr>
                 <tr>
-                    <button :class="{active: disableBtn}" :disabled="disableBtn" @click.prevent="on_signup">
+                    <button :class="{active: disableBtn}" :disabled="disableBtn" @click.prevent="on_signup" tabindex="7">
                         Sign Up
-                    </button>   
+                    </button>
+                    <br>
+                    <span class="error_control" v-show="btnError">{{ btnMsg }}</span>
                 </tr>
    
             </table>     
@@ -124,7 +126,9 @@
                 passwordMsg2: '',
                 disableBtn: true,
                 isActive: true,
-                hasError: false
+                hasError: false,
+                btnMsg: '',
+                btnError: true
             }
         },
 
@@ -142,7 +146,6 @@
                 if(this.requiredField(value, 'passwordMsg'))
                     if (this.check_password_length(value, 'passwordMsg', 16)) {
                         this.check_passwords_match();
-                        console.log(this.disableBtn);
                     }
             },
             'newUser.password2': function (value) {
@@ -151,13 +154,11 @@
                     if (this.check_password_length(value, 'passwordMsg2', 16)) {
                         this.check_passwords_match();
                         console.log(this.disableBtn);
-                        console.log(this.isErrorName);
                     }
 
             },
             'newUser.name': function (value) {
                 this.requiredField(value,'userMsg');
-
             }
         },
 
@@ -204,7 +205,6 @@
                         display = 'Keep going - just need ' + sum + ' more characters';
                 }
 
-                //ukgjygkuyfkutfhtchkgcv
                 if (length >= total) {
                     this[msg] = '';
                     return true;
@@ -223,35 +223,26 @@
                         this.disableBtn = true;
                         return true;
                     } else {
-                        this.password2_msg = '';
+                        this.passwordMsg2 = '';
                         this.disableBtn = false;
                         return false;
                     }
                 }
             },
-            //            isValid(){
-            //                if(this.newUser.name !== '' && this.newUser.email !== '' && this.newUser.city !== '' && this.newUser.password !== '' && this.newUser.password2 !== '')
-            //                {
-            //                    this.error_msg = true;
-            //                    this.user_msg = 'NOO';
-            //                }
-            //                else {
-            //                    this.error_msg = false;
-            //                    this.user_msg = '';
-            //                }
-            //            },
 
-            check_requered_fields() {
-                this.disableBtn = this.newUser.name !== '' && this.newUser.email !== '' && this.newUser.city !== '' && this.newUser.password !== '' && this.newUser.password2 !== '';
-
-            },
             on_signup(){
+
+                if(this.newUser.name === '' || this.newUser.email === '' || this.newUser.city === '' || this.newUser.password === '' || this.newUser.password2 === '')
+                {
+
+                }
                 if(this.newUser.name !== '' && this.newUser.email !== '' && this.newUser.city !== '' && this.newUser.password !== '' && this.newUser.password2 !== '') {
                     console.log(this.newUser.name);
                     console.log(this.newUser.email);
                     console.log(this.newUser.city);
                     console.log(this.newUser.password);
                     console.log(this.newUser.mailing);
+                    this.btnError = false;
                     axios.post('http://jsonplaceholder.typicode.com/posts', {
                         name: this.newUser.name,
                         email: this.newUser.email,
@@ -266,6 +257,8 @@
                         });
                 }
                 else{
+                    this.btnError = true;
+                    this.btnMsg = 'All fields are required';
                     console.log('не все поля заполнены');
                 }
 

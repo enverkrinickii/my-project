@@ -29,7 +29,7 @@ import post from './components/post.vue'
 import contacts from './components/contacts.vue'
 import myheader from './components/myheader.vue'
 import registration from './components/registration.vue'
-
+import authorization from './components/authorization.vue'
 
 
 const router = new VueRouter({
@@ -38,16 +38,16 @@ const router = new VueRouter({
     linkActiveClass: 'active',
     transitionOnLoad: true,
     routes: [
-    { path: '/settings', component: settings},
-    { path: '/registration', component: registration},
-    { path: '/contacts', component: contacts }, 
-    { path: '/post/:id', name: 'post', component: post },
-    { path: '/:page/', name: 'page', component: mainPage },
-    { path: '/1', alias: '/', component: mainPage},
-   
-    
+        { path: '/settings', component: settings},
+        { path: '/registration', component: registration},
+        { path: '/contacts', component: contacts },
+        { path: '/post/:id', name: 'post', component: post },
+        { path: '/:page/', name: 'page', component: mainPage },
+        { path: '/1', alias: '/', component: mainPage},
+        {path: '/singin', components: authorization}
 
-  ]})
+
+    ]});
 
 
 
@@ -59,7 +59,7 @@ new Vue({
     
     
     
-})
+});
 
 
     
