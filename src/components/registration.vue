@@ -204,6 +204,7 @@
                         display = 'Keep going - just need ' + sum + ' more characters';
                 }
 
+                //ukgjygkuyfkutfhtchkgcv
                 if (length >= total) {
                     this[msg] = '';
                     return true;
