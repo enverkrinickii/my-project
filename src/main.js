@@ -13,10 +13,10 @@ import Vuelidate from 'vuelidate'
 
 
 
-Vue.use(VueMaterial)
-Vue.use(VueRouter)
-Vue.use(VueAxios, axios)
-Vue.use(Vuelidate)
+Vue.use(VueMaterial);
+Vue.use(VueRouter);
+Vue.use(VueAxios, axios);
+Vue.use(Vuelidate);
 
 
 
@@ -44,7 +44,7 @@ const router = new VueRouter({
         { path: '/post/:id', name: 'post', component: post },
         { path: '/:page/', name: 'page', component: mainPage },
         { path: '/1', alias: '/', component: mainPage},
-        {path: '/singin', components: authorization}
+        {path: '/log', components: authorization}
 
 
     ]});

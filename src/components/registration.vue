@@ -16,7 +16,7 @@
                         <div class="login">
                             <input type="text" maxlength="16" tabindex="1" name="NickName" v-model="newUser.name" placeholder="Login" >
                             <br>
-                                <span class="error_control" v-show="isErrorName">{{ userMsg  }}
+                                <span class="error_control" v-show="isError">{{ userMsg  }}
                                 </span>
                         </div>
                     </td>
@@ -28,7 +28,7 @@
                     <td>
                            <div class="email">
                                <input type="email" tabindex="2" name="Email" v-model="newUser.email" placeholder="Email"><br>
-                               <span v-show="isErrorMail" >{{ emailMsg }}</span>
+                               <span v-show="isError" >{{ emailMsg }}</span>
                            </div>
                     </td>
                     
@@ -59,7 +59,7 @@
                             <input type="password" tabindex="4" name="Password" v-model="newUser.password" placeholder="Password" maxlength="16" >
                         </div>
                             <br>
-                        <span class="error_control" v-show="isErrorPswd">{{ passwordMsg }}</span>
+                        <span class="error_control" v-show="isError">{{ passwordMsg }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +70,7 @@
                         <div class="password conf">
                             <input type="password" tabindex="5" name="Password2" v-model="newUser.password2" placeholder="Repeat password" maxlength="16">
                             <br>
-                            <span class="error_control" v-show="isErrorPswd">{{ passwordMsg2 }}</span>
+                            <span class="error_control" v-show="isError">{{ passwordMsg2 }}</span>
                         </div>
                     </td>
                      
@@ -90,7 +90,7 @@
                         Sign Up
                     </button>
                     <br>
-                    <span class="error_control" v-show="btnError">{{ btnMsg }}</span>
+                    <span class="error_control" v-show="isError">{{ btnMsg }}</span>
                 </tr>
    
             </table>     
@@ -117,16 +117,14 @@
                 //     active: true,
                 //     'text-danger': false
                 // },
-                isErrorName: true,
-                isErrorMail: true,
-                isErrorPswd: true,
+                isError: true,
                 userMsg: '',
                 emailMsg: '',
                 passwordMsg: '',
                 passwordMsg2: '',
                 disableBtn: true,
-                isActive: true,
-                hasError: false,
+//                isActive: true,
+//                hasError: false,
                 btnMsg: '',
                 btnError: true
             }
